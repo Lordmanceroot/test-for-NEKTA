@@ -1,0 +1,22 @@
+<table>
+
+  <caption>Таблица. Список устройств</caption>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Наименование прибора</th>
+    <th>Дата и время последней активности</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <ng-container *ngFor="let device of devices">
+    <tr>
+      <td>{{device.id}}</td>
+      <td>{{device.name}}</td>
+      <td>{{device.last_active | exchangeDate}}</td>
+    </tr>
+  </ng-container>
+  </tbody>
+
+</table>

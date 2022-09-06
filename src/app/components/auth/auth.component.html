@@ -1,0 +1,21 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1>Авторизация</h1>
+
+  <div class="test">
+    <div class="form-control">
+      <label>Логин</label>
+      <input type="text" placeholder="Введите логин..." formControlName="login">
+    </div>
+
+    <div class="form-control">
+      <label>Пароль</label>
+      <input type="password" placeholder="Введите пароль..." formControlName="password">
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="form?.invalid">Отправить</button>
+</form>
+
+
+
+
