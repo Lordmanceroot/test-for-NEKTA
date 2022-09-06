@@ -19,6 +19,8 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private fetchService: FetchService) {
     this.formData = {email: "", password: ""}
+    const token = localStorage.getItem("access_token")
+    if (token) this.router.navigate(['/devices-list'])
   }
 
   ngOnInit(): void {
@@ -44,12 +46,13 @@ export class AuthComponent implements OnInit, OnDestroy {
       .auth(this.formData)
       .pipe(
         catchError(err => {
-          alert(`${err.error.error.msg}, убедитесь в правильности вводимых данных`)
-          throw 'error in source. Details: ' + err.error.error.msg
+          console.log(err)
+          alert(err.error?.error?.msg)
+          throw 'error in source. Details: ' + (err.error?.error?.msg || 'Ошибка')
         })
       )
       .subscribe((body) => {
-        if (body?.data?.access_token) {
+        if (body.data?.access_token) {
           localStorage.setItem('access_token', body.data.access_token)
           this.router.navigate(['/devices-list']);
         }

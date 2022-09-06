@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {catchError, Subscription} from "rxjs";
 import {FetchService} from "../../services/fetch.service";
 import {body} from "../../mocks/body"
 import {DeviceModel} from "../../models/device.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-devices-list',
@@ -16,14 +17,32 @@ export class DevicesListComponent implements OnInit, OnDestroy {
   private token: string;
   public devices!: DeviceModel[];
 
-  constructor(private fetchService: FetchService) {
+  constructor(private fetchService: FetchService,
+              private router: Router,) {
     this.bodyJson = JSON.stringify(body)
     this.token = 'Bearer' + ' ' + localStorage.getItem('access_token')
   }
 
   ngOnInit(): void {
-    this.subscription = this.fetchService.getDevices(this.bodyJson, this.token).subscribe(device => {
-      this.devices = device.data.metering_devices.data
+    const errorMessage = 'необходимо авторизироваться, сейчас вы окажетесь на странице авторизации'
+    this.subscription = this.fetchService
+      .getDevices(this.bodyJson, this.token)
+      .pipe(
+        catchError(err => {
+          alert(`${err.error?.error?.msg}, ${errorMessage}` || errorMessage)
+          localStorage.removeItem('access_token')
+          this.router.navigate([''])
+          throw 'error in source. Details: ' + (err.error?.error?.msg || 'Ошибка')
+        })
+      )
+      .subscribe(device => {
+      this.devices = device?.data?.metering_devices?.data || []
+        if (!this.devices.length) {
+          alert(`Похоже, ${errorMessage} `)
+          this.router.navigate([''])
+          localStorage.removeItem('access_token')
+          throw 'error in source'
+        }
     })
   }
 
