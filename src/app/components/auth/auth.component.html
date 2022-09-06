@@ -8,12 +8,9 @@
         <input type="text" placeholder="Введите логин..." formControlName=login>
 
         <div class="control-valid" *ngIf="login.invalid && (login.dirty || login.touched)">
-          <small *ngIf="login.errors?.['required']">
-            Нажмите на кнопочку на клавиатуре
-          </small>
-          <small *ngIf="login.errors?.['email']" style="color: red;">
+          <div *ngIf="login.errors?.['email']" style="color: red;">
             Введите корректный login
-          </small>
+          </div>
         </div>
 
       </div>
@@ -25,12 +22,9 @@
         <input type="password" placeholder="Введите пароль..." formControlName=password>
 
         <div class="control-valid" *ngIf="password.invalid && (password.dirty || password.touched)">
-          <small *ngIf="password.errors?.['required']">
-            Нажмите на кнопочку на клавиатуре
-          </small>
-          <small *ngIf="password.errors?.['minlength']" style="color: red; font-size: 0.7rem;">
+          <div *ngIf="password.errors?.['minlength']" style="color: red; font-size: 0.7rem;">
             Минимальное кол-во символов: 6
-          </small>
+          </div>
         </div>
 
       </div>
