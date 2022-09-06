@@ -12,15 +12,19 @@ input {
   margin: 0 3px 0 3px;
 }
 
-.test {
+.form-block {
   display: flex;
   flex-direction: column;
 }
 
-.form-control {
+.form-block__control {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px;
 }
 
+.control-valid {
+  color: red;
+  font-size: 0.7rem;
+}

@@ -1,15 +1,39 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <h1>Авторизация</h1>
 
-  <div class="test">
-    <div class="form-control">
+  <div class="form-block">
+    <div class="form-block__control">
       <label>Логин</label>
-      <input type="text" placeholder="Введите логин..." formControlName="login">
+      <div style="text-align: center;">
+        <input type="text" placeholder="Введите логин..." formControlName=login>
+
+        <div class="control-valid" *ngIf="login.invalid && (login.dirty || login.touched)">
+          <small *ngIf="login.errors?.['required']">
+            Нажмите на кнопочку на клавиатуре
+          </small>
+          <small *ngIf="login.errors?.['email']" style="color: red;">
+            Введите корректный login
+          </small>
+        </div>
+
+      </div>
     </div>
 
-    <div class="form-control">
+    <div class="form-block__control">
       <label>Пароль</label>
-      <input type="password" placeholder="Введите пароль..." formControlName="password">
+      <div style="text-align: center;">
+        <input type="password" placeholder="Введите пароль..." formControlName=password>
+
+        <div class="control-valid" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <small *ngIf="password.errors?.['required']">
+            Нажмите на кнопочку на клавиатуре
+          </small>
+          <small *ngIf="password.errors?.['minlength']" style="color: red; font-size: 0.7rem;">
+            Минимальное кол-во символов: 6
+          </small>
+        </div>
+
+      </div>
     </div>
   </div>
 

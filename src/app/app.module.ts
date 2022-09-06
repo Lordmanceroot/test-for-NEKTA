@@ -8,12 +8,14 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FetchService} from "./services/fetch.service";
 import {HttpClientModule} from '@angular/common/http';
 import {DatePipe} from "./pipes/date.pipe";
+import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     DevicesListComponent,
+    PageNotFoundComponent,
     DatePipe
   ],
   imports: [
