@@ -5,13 +5,13 @@
   <tr>
     <th>ID</th>
     <th>Наименование прибора</th>
-    <th>Дата и время последней активности</th>
+    <th>Последняя активность</th>
   </tr>
   </thead>
 
   <tbody>
   <ng-container *ngFor="let device of devices">
-    <tr>
+    <tr class="row">
       <td>{{device.id}}</td>
       <td>{{device.name}}</td>
       <td>{{device.last_active | exchangeDate}}</td>
